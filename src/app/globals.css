@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbf7f4;
+  --foreground: #2b1d17;
+  --muted: #8b6f66;
+  --cream: #fbf7f4;
+  --rose: #d76a8b;
+  --rose-soft: #f6e4e8;
+  --rose-border: #f3d0da;
+  --rose-border-hover: #eab8c6;
+  --rose-hover-bg: rgba(250, 227, 234, 0.35);
+  --brand-ink: #7a4e44;
+  --shadow: 0 18px 45px rgba(210, 140, 160, 0.18);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-cream: var(--cream);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.bg-cream {
+  background-color: var(--cream);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 768px) {
+  .product-card {
+    width: calc((100% - 72px) / 4);
+  }
+}
