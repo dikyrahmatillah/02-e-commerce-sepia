@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import HeaderSection from "../components/Header";
-import FooterSection from "../components/Footer";
 
 const newInStore = [
   {
@@ -33,8 +31,6 @@ const newInStore = [
 export default function CartPage() {
   return (
     <div className="bg-[#fbf7f4] text-[#2b1d17]">
-      <HeaderSection />
-
       <section className="relative overflow-hidden bg-[#fbf2ee] pt-24">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-[#f3e1d8] blur-3xl" />
@@ -137,8 +133,6 @@ export default function CartPage() {
           </div>
         </div>
       </section>
-
-      <FooterSection />
     </div>
   );
 }

@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
+  Suspense,
   useEffect,
   useMemo,
   useState,
   type Dispatch,
   type SetStateAction,
 } from "react";
-import HeaderSection from "../components/Header";
-import FooterSection from "../components/Footer";
 
 const discountOptions = [
   { name: "On Sale", value: "sale", color: "#8b4a2f" },
@@ -51,7 +50,7 @@ const formatPrice = (value: number | null) => {
   }).format(value);
 };
 
-export default function ShopPage() {
+function ShopPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productsPerPage = 6;
@@ -217,8 +216,6 @@ export default function ShopPage() {
 
   return (
     <div className="bg-[#fbf7f4] text-[#2b1d17]">
-      <HeaderSection />
-
       <section className="relative overflow-hidden bg-[#fbf2ee] pt-28">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-[#f3e1d8] blur-3xl" />
@@ -555,8 +552,24 @@ export default function ShopPage() {
           </div>
         </div>
       </section>
-
-      <FooterSection />
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="bg-[#fbf7f4] text-[#2b1d17]">
+          <section className="mx-auto max-w-6xl px-6 py-16">
+            <div className="rounded-2xl border border-dashed border-[#ead7ce] bg-white px-6 py-10 text-center text-sm text-[#7c5d52]">
+              Loading shop...
+            </div>
+          </section>
+        </div>
+      }
+    >
+      <ShopPageContent />
+    </Suspense>
   );
 }

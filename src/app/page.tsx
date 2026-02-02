@@ -1,6 +1,4 @@
 import { randomInt } from "crypto";
-import HeaderSection from "./components/Header";
-import FooterSection from "./components/Footer";
 import HeroSection from "./components/home/HeroSection";
 import CategoriesSection, {
   Category,
@@ -95,14 +93,12 @@ export default async function Home() {
 
   return (
     <div className="bg-cream text-foreground">
-      <HeaderSection />
       <HeroSection />
       <CategoriesSection categories={categories} />
       <ProductsSection products={products} />
       <ReviewsSection />
       <ConsultSection />
       <AboutSection />
-      <FooterSection />
     </div>
   );
 }

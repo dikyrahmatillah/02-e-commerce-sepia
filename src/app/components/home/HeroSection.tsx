@@ -99,13 +99,13 @@ export default function HeroSection() {
         </div>
       </section>
 
-      <section className="bg-[#fdeee7]">
+      <section className="bg-cream">
         <div className="mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-2 lg:grid-cols-4">
           {benefits.map((benefit) => {
             const Icon = benefit.icon;
             return (
               <div key={benefit.title} className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f8cdb6] text-[#1f1f1f]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-peach text-[#1f1f1f]">
                   <Icon sx={{ fontSize: 26 }} />
                 </div>
                 <div>

@@ -17,7 +17,6 @@ export async function GET(
 
   try {
     const upstream = await fetch(upstreamUrl, { cache: "no-store" });
-    console.log("Upstream response status:", upstream);
 
     if (!upstream.ok) {
       return NextResponse.json(

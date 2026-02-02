@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import FooterSection from "../../components/Footer";
-import HeaderSection from "../../components/Header";
 
 type ProductDetail = {
   id: string;
@@ -308,13 +306,11 @@ export default function ProductDetailPage() {
   if (isLoading) {
     return (
       <div className="bg-[#fbf7f4] text-[#2b1d17]">
-        <HeaderSection />
         <section className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center px-6 py-24">
           <div className="rounded-2xl border border-[#efe2db] bg-white px-8 py-6 text-sm text-[#6e5146] shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
             Loading product details...
           </div>
         </section>
-        <FooterSection />
       </div>
     );
   }
@@ -322,13 +318,11 @@ export default function ProductDetailPage() {
   if (!product || errorMessage) {
     return (
       <div className="bg-[#fbf7f4] text-[#2b1d17]">
-        <HeaderSection />
         <section className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center px-6 py-24">
           <div className="rounded-2xl border border-[#efe2db] bg-white px-8 py-6 text-sm text-[#6e5146] shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
             {errorMessage ?? "Product not found."}
           </div>
         </section>
-        <FooterSection />
       </div>
     );
   }
@@ -339,8 +333,6 @@ export default function ProductDetailPage() {
 
   return (
     <div className="bg-[#fbf7f4] text-[#2b1d17]">
-      <HeaderSection />
-
       <section className="relative overflow-hidden bg-[#fbf2ee] pt-24">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-[#f3e1d8] blur-3xl" />
@@ -784,8 +776,6 @@ export default function ProductDetailPage() {
           </div>
         </section>
       ) : null}
-
-      <FooterSection />
     </div>
   );
 }

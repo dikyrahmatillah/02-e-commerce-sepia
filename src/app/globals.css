@@ -63,6 +63,13 @@ body {
   }
 }
 
+.color-foreground {
+  color: var(--foreground);
+}
+.color-background {
+  color: var(--background);
+}
+
 .text-muted {
   color: var(--muted);
 }

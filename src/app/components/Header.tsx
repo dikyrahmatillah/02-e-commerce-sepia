@@ -22,7 +22,7 @@ const iconButtonSx = (isHome: boolean) => ({
 export default function HeaderSection() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const headerTextClass = isHome ? "var(--foreground)" : "var(--background)";
+  const headerTextClass = isHome ? "color-foreground" : "color-background";
 
   return (
     <header className="absolute left-0 right-0 top-0 z-50">
