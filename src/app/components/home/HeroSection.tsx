@@ -1,5 +1,3 @@
-"use client";
-
 import Button from "@mui/material/Button";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
@@ -16,12 +14,12 @@ const benefits = [
   },
   {
     title: "Free Fast Shipping",
-    description: "For orders above $100",
+    description: "Free shipping on orders over $100",
     icon: LocalShippingRoundedIcon,
   },
   {
     title: "Quality Products",
-    description: "Premium skincare brands",
+    description: "Premium  brands",
     icon: FactCheckRoundedIcon,
   },
   {
@@ -34,7 +32,7 @@ const benefits = [
 export default function HeroSection() {
   return (
     <>
-      <section className="relative min-h-[80vh] overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -42,23 +40,21 @@ export default function HeroSection() {
               "url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=2000&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-black/45" />
 
-        <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-6 pb-24 pt-40 text-white">
-          <div className="flex items-center gap-3 text-sm font-semibold tracking-[0.25em] text-white/90">
-            <span className="flex items-center gap-1 text-[#e28a3c]">
+        <div className="relative mx-auto flex max-w-7xl flex-col gap-5 px-6 pt-85">
+          <div className="flex gap-2 text-sm font-semibold tracking-[0.25em]">
+            <span className="flex items-center gap-1 text-orange-400">
               {Array.from({ length: 5 }).map((_, index) => (
                 <StarRoundedIcon key={index} sx={{ fontSize: 18 }} />
               ))}
             </span>
-            <span>102+ FIVE STAR RATINGS</span>
           </div>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-            Always high-quality items
+          <h1 className="text-4xl font-semibold leading-tight sm:text-6xl">
+            High-quality items you can trust
           </h1>
-          <p className="max-w-2xl text-base text-white/80 sm:text-lg">
-            Skincare treatments that&apos;s personalised to each
+          <p className="text-base sm:text-lg">
+            {process.env.MAIN_PRODUCT} that&apos;s personalised to each
             individual&apos;s needs, providing the best possible outcomes.
           </p>
           <div className="flex flex-wrap items-center gap-6">
@@ -66,55 +62,54 @@ export default function HeroSection() {
               variant="outlined"
               sx={{
                 borderRadius: "999px",
-                borderColor: "rgba(255, 255, 255, 0.7)",
-                color: "#fff",
+                borderColor: "var(--foreground)",
+                color: "var(--foreground)",
                 paddingX: 3,
                 paddingY: 1.2,
                 textTransform: "none",
-                fontSize: "0.95rem",
                 fontWeight: 600,
                 "&:hover": {
-                  borderColor: "#fff",
-                  backgroundColor: "rgba(255, 255, 255, 0.12)",
+                  borderColor: "var(--foreground)",
+                  backgroundColor: "var(--accent-peach)",
                 },
               }}
             >
-              Request a Free Consultation
+              Shop Bestsellers
             </Button>
             <Button
               variant="text"
               endIcon={<ArrowForwardRoundedIcon />}
               sx={{
-                color: "#fff",
+                color: "var(--foreground)",
                 paddingX: 0,
                 textTransform: "none",
-                fontSize: "0.95rem",
                 fontWeight: 600,
-                "&:hover": { backgroundColor: "transparent", opacity: 0.85 },
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: "var(--accent-peach)",
+                },
               }}
             >
-              Book Online
+              Explore Collections
             </Button>
           </div>
         </div>
       </section>
 
       <section className="bg-cream">
-        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid grid-cols-4 justify-items-center gap-8 px-4 py-8">
           {benefits.map((benefit) => {
             const Icon = benefit.icon;
             return (
               <div key={benefit.title} className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-peach text-[#1f1f1f]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-peach text-background">
                   <Icon sx={{ fontSize: 26 }} />
                 </div>
                 <div>
-                  <p className="text-base font-semibold text-[#1f1f1f]">
+                  <p className="text-base font-semibold text-gray-900">
                     {benefit.title}
                   </p>
-                  <p className="text-sm text-[#3b3b3b]">
-                    {benefit.description}
-                  </p>
+                  <p className="text-sm text-gray-700">{benefit.description}</p>
                 </div>
               </div>
             );

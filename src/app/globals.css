@@ -4,7 +4,6 @@
   --background: #fbf7f4;
   --foreground: #2b1d17;
   --muted: #8b6f66;
-  --cream: #fbf7f4;
   --rose: #d76a8b;
   --rose-soft: #f6e4e8;
   --rose-border: #f3d0da;
@@ -13,7 +12,7 @@
   --brand-ink: #7a4e44;
   --brand-deep: #9b5a34;
   --cream: #fdeee7;
-  --accent-peach: #f8cdb6;
+  --accent-peach: #f8cdb6ae;
   --shadow: 0 18px 45px rgba(210, 140, 160, 0.18);
 }
 
