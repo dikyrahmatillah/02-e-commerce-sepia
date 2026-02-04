@@ -92,7 +92,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-cream text-foreground">
+    <div className="bg-background text-foreground">
       <HeroSection />
       <CategoriesSection categories={categories} />
       <ProductsSection products={products} />

@@ -42,7 +42,7 @@ export default function HeroSection() {
         />
         <div className="absolute inset-0 bg-black/45" />
 
-        <div className="relative mx-auto flex max-w-7xl flex-col gap-5 px-6 pt-85">
+        <div className="relative mx-auto flex max-w-7xl flex-col gap-5 px-6 pt-85 color-background">
           <div className="flex gap-2 text-sm font-semibold tracking-[0.25em]">
             <span className="flex items-center gap-1 text-orange-400">
               {Array.from({ length: 5 }).map((_, index) => (
@@ -62,14 +62,14 @@ export default function HeroSection() {
               variant="outlined"
               sx={{
                 borderRadius: "999px",
-                borderColor: "var(--foreground)",
-                color: "var(--foreground)",
+                borderColor: "var(--background)",
+                color: "var(--background)",
                 paddingX: 3,
                 paddingY: 1.2,
                 textTransform: "none",
                 fontWeight: 600,
                 "&:hover": {
-                  borderColor: "var(--foreground)",
+                  borderColor: "var(--background)",
                   backgroundColor: "var(--accent-peach)",
                 },
               }}
@@ -80,7 +80,7 @@ export default function HeroSection() {
               variant="text"
               endIcon={<ArrowForwardRoundedIcon />}
               sx={{
-                color: "var(--foreground)",
+                color: "var(--background)",
                 paddingX: 0,
                 textTransform: "none",
                 fontWeight: 600,
@@ -106,9 +106,7 @@ export default function HeroSection() {
                   <Icon sx={{ fontSize: 26 }} />
                 </div>
                 <div>
-                  <p className="text-base font-semibold text-gray-900">
-                    {benefit.title}
-                  </p>
+                  <p className="text-base font-semibold ">{benefit.title}</p>
                   <p className="text-sm text-gray-700">{benefit.description}</p>
                 </div>
               </div>

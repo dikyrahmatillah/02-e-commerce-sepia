@@ -14,34 +14,32 @@ export default function CategoriesSection({
   categories: Category[];
 }) {
   return (
-    <section id="categories" className="bg-[#fbf4ee] py-20">
+    <section className="py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-2xl">
-          <h2 className="text-4xl font-semibold text-rose-950 md:text-5xl">
-            Explore our Product Category
-          </h2>
-          <p className="mt-3 text-base text-rose-950/70">
-            Complete your beauty routine with sun and body care.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <h2 className="font-semibold text-brand-ink text-4xl">
+          Explore our Product Category
+        </h2>
+        <p className="mt-3 text-brand-ink-soft">
+          Complete your beauty routine with sun and body care.
+        </p>
+        <div className="mt-12 grid grid-cols-5 gap-6">
           {categories.map((item) => (
             <div
               key={item.title}
-              className="group overflow-hidden rounded-3xl border border-rose-100/60 bg-white shadow-soft"
+              className="overflow-hidden rounded-3xl bg-white"
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-56 ">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={520}
                   height={420}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition duration-1000 hover:scale-105"
                   loading="lazy"
                 />
               </div>
-              <div className="flex items-center justify-between gap-4 bg-[#9b5a34] px-6 py-5 text-white">
-                <p className="text-base font-semibold leading-snug">
+              <div className="flex items-center justify-between  bg-brand-ink px-6 py-5 text-background">
+                <p className="text-sm font-semibold leading-snug">
                   {item.title}
                 </p>
                 <span className="text-xl font-light">→</span>
