@@ -16,12 +16,6 @@ export type Product = {
   imageSrc: string;
 };
 
-function formatPricePair(oldPrice?: string, price?: string) {
-  if (oldPrice && price) return { oldPrice, price };
-  if (price) return { price };
-  return {};
-}
-
 export default function ProductsSection({ products }: { products: Product[] }) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [activePage, setActivePage] = useState(0);
@@ -104,7 +98,6 @@ export default function ProductsSection({ products }: { products: Product[] }) {
             aria-label="Product carousel"
           >
             {products.map((item) => {
-              const prices = formatPricePair(item.oldPrice, item.price);
               return (
                 <article
                   key={item.id}
@@ -131,16 +124,18 @@ export default function ProductsSection({ products }: { products: Product[] }) {
 
                   <div className="flex flex-1 justify-between flex-col mt-10">
                     <div className="flex items-center gap-2 px-6">
-                      {prices.oldPrice ? (
-                        <span className="text-sm font-semibold text-muted line-through">
-                          {prices.oldPrice}
-                        </span>
-                      ) : null}
-                      {prices.price ? (
-                        <span className="text-base font-bold">
-                          {prices.price}
-                        </span>
-                      ) : null}
+                      {item.oldPrice ? (
+                        <>
+                          <span className="text-sm font-semibold text-muted line-through">
+                            {item.oldPrice}
+                          </span>
+                          <span className="text-base font-bold">
+                            {item.price}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-sm font-bold">{item.price}</span>
+                      )}
                     </div>
 
                     <h3 className="mt-2 text-xl line-clamp-5 font-semibold px-6">
