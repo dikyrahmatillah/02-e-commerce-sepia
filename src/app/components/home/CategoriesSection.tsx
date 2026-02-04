@@ -19,7 +19,7 @@ export default function CategoriesSection({
         <h2 className="font-semibold text-brand-ink text-4xl">
           Explore our Product Category
         </h2>
-        <p className="mt-3 text-brand-ink-soft">
+        <p className="mt-3 text-brand-ink-soft text-base">
           Complete your beauty routine with sun and body care.
         </p>
         <div className="mt-12 grid grid-cols-5 gap-6">
@@ -38,7 +38,7 @@ export default function CategoriesSection({
                   loading="lazy"
                 />
               </div>
-              <div className="flex items-center justify-between  bg-brand-ink px-6 py-5 text-background">
+              <div className="flex items-center justify-between bg-brand-ink px-6 py-5 text-background">
                 <p className="text-sm font-semibold leading-snug">
                   {item.title}
                 </p>

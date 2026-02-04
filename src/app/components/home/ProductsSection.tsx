@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export type Product = {
@@ -82,13 +85,13 @@ export default function ProductsSection({ products }: { products: Product[] }) {
   };
 
   return (
-    <section id="products" className="bg-[#fbf2ee] py-20">
+    <section id="products" className="py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
-          <h2 className="font-serif text-3xl font-semibold tracking-tight text-[#8b4a2f] sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-brand-ink">
             Popular Skin Products for your Daily Use
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-sm text-[#7c5d52] sm:text-base">
+          <p className="mx-auto mt-4 text-base text-brand-ink-soft">
             Our picks for your skin: the products we love and recommend for a
             glowing you
           </p>
@@ -97,7 +100,7 @@ export default function ProductsSection({ products }: { products: Product[] }) {
         <div className="relative mt-12">
           <div
             ref={scrollerRef}
-            className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-8"
+            className="no-scrollbar flex snap-x snap-mandatory gap-6 pb-8 overflow-x-auto "
             aria-label="Product carousel"
           >
             {products.map((item) => {
@@ -105,17 +108,17 @@ export default function ProductsSection({ products }: { products: Product[] }) {
               return (
                 <article
                   key={item.id}
-                  className="product-card relative flex w-70 flex-none snap-start flex-col overflow-hidden rounded-2xl border border-[#efe2db] bg-white shadow-[0_18px_45px_rgba(160,114,90,0.18)] sm:w-80"
+                  className="product-card relative flex w-70 flex-none snap-start flex-col overflow-hidden rounded-2xl bg-white sm:w-80"
                 >
                   {item.badge ? (
                     <div className="absolute left-4 top-4 z-10">
-                      <span className="inline-flex items-center rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
+                      <span className="inline-flex items-center rounded-full bg-brand-ink-soft px-3 py-1 text-xs font-semibold text-background">
                         {item.badge}
                       </span>
                     </div>
                   ) : null}
 
-                  <div className="flex items-center justify-center bg-white px-6 pt-10">
+                  <div className="flex items-center justify-center px-6 pt-10">
                     <Image
                       src={item.imageSrc}
                       alt={item.name}
@@ -126,33 +129,33 @@ export default function ProductsSection({ products }: { products: Product[] }) {
                     />
                   </div>
 
-                  <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-1 justify-between flex-col mt-10">
+                    <div className="flex items-center gap-2 px-6">
                       {prices.oldPrice ? (
-                        <span className="text-sm font-semibold text-[#b8aaa3] line-through">
+                        <span className="text-sm font-semibold text-muted line-through">
                           {prices.oldPrice}
                         </span>
                       ) : null}
                       {prices.price ? (
-                        <span className="text-base font-semibold text-[#2b1d17]">
+                        <span className="text-base font-bold">
                           {prices.price}
                         </span>
                       ) : null}
                     </div>
 
-                    <h3 className="mt-4 text-xl font-semibold text-[#2b1d17]">
+                    <h3 className="mt-2 text-xl line-clamp-5 font-semibold px-6">
                       {item.name}
                     </h3>
-                    <p className="mt-4 line-clamp-3 text-sm leading-6 text-[#7c5d52]">
+                    <p className="mt-4 line-clamp-3 text-sm leading-5 text-brand-ink-soft px-6">
                       {item.description}
                     </p>
 
-                    <button
-                      type="button"
-                      className="mt-6 w-full rounded-b-2xl rounded-t-md bg-[#8b4a2f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7a4029]"
+                    <Link
+                      href={`/shop/${item.id}`}
+                      className="mt-8 bg-brand-ink py-3 text-sm font-semibold text-background text-center hover:bg-brand-ink-soft hover:text-brand-ink  cursor-pointer"
                     >
-                      Add To Cart +
-                    </button>
+                      See Details
+                    </Link>
                   </div>
                 </article>
               );
@@ -163,17 +166,17 @@ export default function ProductsSection({ products }: { products: Product[] }) {
             type="button"
             onClick={() => scrollByCard(-1)}
             aria-label="Previous products"
-            className="absolute left-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#efe2db] bg-white/90 text-[#8b4a2f] shadow-sm backdrop-blur hover:bg-white md:grid"
+            className="absolute -left-12 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border-none text-brand-ink hover:shadow-sm transition duration-500 hover:bg-white cursor-pointer md:grid"
           >
-            <span className="text-xl leading-none">‹</span>
+            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
           </button>
           <button
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label="Next products"
-            className="absolute right-2 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#efe2db] bg-white/90 text-[#8b4a2f] shadow-sm backdrop-blur hover:bg-white md:grid"
+            className="absolute -right-12 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border-none text-brand-ink hover:shadow-sm transition duration-500 hover:bg-white cursor-pointer md:grid"
           >
-            <span className="text-xl leading-none">›</span>
+            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
           </button>
 
           <div
@@ -189,8 +192,8 @@ export default function ProductsSection({ products }: { products: Product[] }) {
                 aria-current={pageIndex === activePage ? "true" : "false"}
                 className={
                   pageIndex === activePage
-                    ? "h-2.5 w-2.5 rounded-full bg-[#8b4a2f]"
-                    : "h-2.5 w-2.5 rounded-full bg-[#d8c7bf] hover:bg-[#bfa99f]"
+                    ? "h-2.5 w-2.5 rounded-full bg-brand-ink"
+                    : "h-2.5 w-2.5 rounded-full bg-brand-ink-soft"
                 }
               />
             ))}

@@ -5,7 +5,7 @@
   --foreground: #2b1d17;
   --muted: #8b6f66;
   --brand-ink: #8b4a2f;
-  --brand-ink-soft: #7a5347fd;
+  --brand-ink-soft: #8b6b61fd;
 
   --cream: #fdeee7;
   --accent-peach: #f8cdb6;
@@ -86,6 +86,10 @@ body {
 
 .bg-brand-ink {
   background-color: var(--brand-ink);
+}
+
+.bg-brand-ink-soft {
+  background-color: var(--brand-ink-soft);
 }
 
 .text-brand-ink {
