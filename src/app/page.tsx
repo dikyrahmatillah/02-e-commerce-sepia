@@ -43,8 +43,8 @@ export default async function Home() {
     );
     const payload: ApiResponse = await response.json();
     const items = (payload.data ?? []) as AliProductsResponse[];
-    const productSource = items;
-    const categorySource = items.slice(12).length ? items.slice(12) : items;
+    const categorySource = items.slice(10);
+    const productSource = items.slice(10, 20);
     products = productSource;
     categories = mapCategories(categorySource);
   } catch {

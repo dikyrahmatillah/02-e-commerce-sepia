@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export type Category = {
   title: string;
@@ -26,24 +27,27 @@ export default function CategoriesSection({
           {categories.map((item) => (
             <div
               key={item.title}
-              className="overflow-hidden rounded-3xl bg-white"
+              className="overflow-hidden rounded-xl flex flex-col justify-between "
             >
-              <div className="relative h-56 ">
+              <div className="relative h-64">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={520}
-                  height={420}
-                  className="h-full w-full object-cover transition duration-1000 hover:scale-105"
+                  height={520}
+                  className="h-full w-full object-cover block transition duration-1000 hover:scale-110"
                   loading="lazy"
                 />
               </div>
-              <div className="flex items-center justify-between bg-brand-ink px-6 py-5 text-background">
+              <Link
+                href={item.url}
+                className="flex items-center justify-between bg-brand-ink px-6 py-5 text-background"
+              >
                 <p className="text-sm font-semibold leading-snug">
                   {item.title}
                 </p>
                 <span className="text-xl font-light">→</span>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
