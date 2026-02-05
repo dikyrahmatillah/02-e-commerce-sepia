@@ -5,18 +5,13 @@ import Link from "next/link";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AliProductsResponse } from "@/type/aliexpress-product";
 
-export type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  oldPrice?: string;
-  badge?: string;
-  imageSrc: string;
-};
-
-export default function ProductsSection({ products }: { products: Product[] }) {
+export default function ProductsSection({
+  products,
+}: {
+  products: AliProductsResponse[];
+}) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [activePage, setActivePage] = useState(0);
   const [pageCount, setPageCount] = useState(1);
@@ -103,18 +98,18 @@ export default function ProductsSection({ products }: { products: Product[] }) {
                   key={item.id}
                   className="product-card relative flex w-70 flex-none snap-start flex-col overflow-hidden rounded-2xl bg-white sm:w-80"
                 >
-                  {item.badge ? (
+                  {item.originalPrice && (
                     <div className="absolute left-4 top-4 z-10">
                       <span className="inline-flex items-center rounded-full bg-brand-ink-soft px-3 py-1 text-xs font-semibold text-background">
-                        {item.badge}
+                        sale
                       </span>
                     </div>
-                  ) : null}
+                  )}
 
                   <div className="flex items-center justify-center px-6 pt-10">
                     <Image
-                      src={item.imageSrc}
-                      alt={item.name}
+                      src={item.image[0]}
+                      alt={item.productTitle}
                       width={520}
                       height={320}
                       unoptimized
@@ -124,25 +119,27 @@ export default function ProductsSection({ products }: { products: Product[] }) {
 
                   <div className="flex flex-1 justify-between flex-col mt-10">
                     <div className="flex items-center gap-2 px-6">
-                      {item.oldPrice ? (
+                      {item.originalPrice ? (
                         <>
                           <span className="text-sm font-semibold text-muted line-through">
-                            {item.oldPrice}
+                            ${item.originalPrice}
                           </span>
                           <span className="text-base font-bold">
-                            {item.price}
+                            ${item.salePrice}
                           </span>
                         </>
                       ) : (
-                        <span className="text-sm font-bold">{item.price}</span>
+                        <span className="text-sm font-bold">
+                          ${item.salePrice}
+                        </span>
                       )}
                     </div>
 
                     <h3 className="mt-2 text-xl line-clamp-5 font-semibold px-6">
-                      {item.name}
+                      {item.productTitle}
                     </h3>
                     <p className="mt-4 line-clamp-3 text-sm leading-5 text-brand-ink-soft px-6">
-                      {item.description}
+                      {item.shortDesc}
                     </p>
 
                     <Link
