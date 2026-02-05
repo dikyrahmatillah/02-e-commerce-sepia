@@ -1,11 +1,28 @@
-export interface ApiResponse<T> {
-  data: {
-    productId: string;
-    data: T;
-  };
+export type ApiResponse = {
+  message: string;
+  data: AliProductDetailResponse[] | AliProductsResponse[];
+};
+
+export interface AliProductsResponse {
+  category1: string;
+  category2: string;
+  categoryId1: number;
+  categoryId2: number;
+  discountPercentage?: string;
+  id: string;
+  image: string[];
+  originalPrice: number;
+  productTitle: string;
+  salePrice?: number;
+  shortDesc: string;
+  storeName: string;
+  totalSold?: number;
+  totalValidNum?: number;
+  wishItemCount?: number;
+  createdAt: string;
 }
 
-export interface AliProduct {
+export interface AliProductDetailResponse {
   id: number;
   rating: number;
   reviews: Review[];
@@ -97,5 +114,3 @@ export interface SkuPropertyValue {
   skuPropertyImagePath?: string;
   propertyValueDisplayName?: string;
 }
-
-export type AliProductApiResponse = ApiResponse<AliProduct>;
