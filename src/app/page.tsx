@@ -7,23 +7,7 @@ import ProductsSection, { Product } from "./components/home/ProductsSection";
 import ReviewsSection from "./components/home/ReviewsSection";
 import ConsultSection from "./components/home/ConsultSection";
 import AboutSection from "./components/home/AboutSection";
-
-type ApiProduct = {
-  id: string | number;
-  productTitle?: string | null;
-  shortDesc?: string | null;
-  salePrice?: number | string | null;
-  originalPrice?: number | string | null;
-  discountPercentage?: string | null;
-  image?: string[] | null;
-  imge?: string[] | null;
-  category1?: string | null;
-};
-
-type ApiResponse = {
-  message?: string;
-  data?: ApiProduct[];
-};
+import { ApiResponse, AliProductsResponse } from "@/type/aliexpress-product";
 
 const formatMoney = (value?: number | string | null) => {
   if (value === null || value === undefined || value === "") return undefined;
@@ -32,12 +16,12 @@ const formatMoney = (value?: number | string | null) => {
   return `$${num.toFixed(2)}`;
 };
 
-const mapProducts = (items: ApiProduct[]): Product[] =>
+const mapProducts = (items: AliProductsResponse[]): Product[] =>
   items
     .filter((item) => Boolean(item.productTitle))
     .slice(0, 12)
     .map((item) => {
-      const images = item.image ?? item.imge ?? [];
+      const images = item.image ?? item.image ?? [];
       const salePrice = formatMoney(item.salePrice);
       const originalPrice = formatMoney(item.originalPrice);
       return {
@@ -51,18 +35,21 @@ const mapProducts = (items: ApiProduct[]): Product[] =>
       };
     });
 
-const mapCategories = (items: ApiProduct[]): Category[] => {
+const mapCategories = (items: AliProductsResponse[]): Category[] => {
   const seen = new Set<string>();
   const categories: Category[] = [];
   for (const item of items) {
-    if (!item.category1) continue;
-    if (seen.has(item.category1)) continue;
-    const images = item.image ?? item.imge ?? [];
+    if (!item.category2) continue;
+    if (seen.has(item.category2)) continue;
+
     categories.push({
-      title: item.category1,
-      image: images[0] || "/products/product-pouch.svg",
+      title: item.category2,
+      image: item.image[0],
+      url: `/shop/${item.id}`,
     });
-    seen.add(item.category1);
+
+    seen.add(item.category2);
+
     if (categories.length >= 5) break;
   }
   return categories;
@@ -80,8 +67,8 @@ export default async function Home() {
         next: { revalidate: 60 },
       },
     );
-    const payload = (await response.json()) as ApiResponse;
-    const items = payload.data ?? [];
+    const payload: ApiResponse = await response.json();
+    const items = (payload.data ?? []) as AliProductsResponse[];
     const productSource = items;
     const categorySource = items.slice(12).length ? items.slice(12) : items;
     products = mapProducts(productSource);

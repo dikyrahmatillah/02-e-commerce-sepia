@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export type Category = {
   title: string;
-  description?: string;
   image: string;
+  url: string;
 };
 
 export default function CategoriesSection({

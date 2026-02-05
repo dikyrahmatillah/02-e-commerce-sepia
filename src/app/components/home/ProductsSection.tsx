@@ -22,7 +22,7 @@ export default function ProductsSection({ products }: { products: Product[] }) {
   const [pageCount, setPageCount] = useState(1);
 
   const pages = useMemo(
-    () => Array.from({ length: pageCount }, (_, i) => i),
+    () => Array.from({ length: pageCount - 1 }, (_, i) => i),
     [pageCount],
   );
 
@@ -187,8 +187,8 @@ export default function ProductsSection({ products }: { products: Product[] }) {
                 aria-current={pageIndex === activePage ? "true" : "false"}
                 className={
                   pageIndex === activePage
-                    ? "h-2.5 w-2.5 rounded-full bg-brand-ink"
-                    : "h-2.5 w-2.5 rounded-full bg-brand-ink-soft"
+                    ? "h-2.5 w-2.5 rounded-full bg-brand-ink transition-transform duration-500 hover:scale-125 cursor-pointer"
+                    : "h-2.5 w-2.5 rounded-full bg-brand-ink-soft transition-transform duration-500 hover:scale-125 cursor-pointer"
                 }
               />
             ))}
