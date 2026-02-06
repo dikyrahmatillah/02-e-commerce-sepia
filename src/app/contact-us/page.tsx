@@ -22,7 +22,7 @@ const contactOptions = [
   {
     title: "Email",
     description: "Send us a message and we'll respond within 24 hours.",
-    lines: ["info@sophiastheme.com", "booking@sophiatheme.com"],
+    lines: ["info@sepia.com", "booking@sepia.com"],
     icon: (
       <svg
         aria-hidden="true"

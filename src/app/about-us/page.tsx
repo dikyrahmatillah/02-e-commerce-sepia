@@ -182,7 +182,7 @@ export default function AboutUsPage() {
           <div className="rounded-[28px] border border-[#efe2db] bg-white p-4 shadow-[0_18px_45px_rgba(160,114,90,0.12)]">
             <img
               src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80"
-              alt="Sophia clinic"
+              alt="Sepia clinic"
               className="h-full w-full rounded-[22px] object-cover"
             />
           </div>

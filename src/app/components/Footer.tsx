@@ -192,7 +192,7 @@ export default function FooterSection() {
                 variant="h6"
                 sx={{ fontFamily: "serif", fontWeight: 600 }}
               >
-                Sophia
+                Sepia
               </Typography>
               <Typography variant="caption" sx={{ color: "#d7b3a6" }}>
                 ALL PURPOSE THEME

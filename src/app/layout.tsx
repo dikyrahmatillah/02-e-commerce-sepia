@@ -15,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sophia | Skincare & Beauty Studio",
-  description:
-    "Premium skincare routines, curated products, and personalized consultations for radiant skin.",
+  title: "Sepia",
+  description: "Premium products.",
 };
 
 export default function RootLayout({

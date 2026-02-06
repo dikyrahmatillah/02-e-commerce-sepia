@@ -32,7 +32,7 @@ export default function HeaderSection() {
             <p
               className={`text-2xl font-semibold tracking-wide ${headerTextClass}`}
             >
-              Sophia
+              Sepia
             </p>
             <p
               className={`text-xs uppercase tracking-[0.35em] ${headerTextClass}`}

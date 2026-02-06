@@ -17,7 +17,7 @@ export default function ProductsSection({
   const [pageCount, setPageCount] = useState(1);
 
   const pages = useMemo(
-    () => Array.from({ length: pageCount - 1 }, (_, i) => i),
+    () => Array.from({ length: pageCount }, (_, i) => i),
     [pageCount],
   );
 
