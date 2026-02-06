@@ -1,12 +1,12 @@
 import { randomInt } from "crypto";
-import HeroSection from "./components/home/HeroSection";
+import HeroSection from "@/components/home/HeroSection";
 import CategoriesSection, {
   Category,
-} from "./components/home/CategoriesSection";
-import ProductsSection from "./components/home/ProductsSection";
-import ReviewsSection from "./components/home/ReviewsSection";
-import ConsultSection from "./components/home/ConsultSection";
-import AboutSection from "./components/home/AboutSection";
+} from "@/components/home/CategoriesSection";
+import ProductsSection from "@/components/home/ProductsSection";
+import ReviewsSection from "@/components/home/ReviewsSection";
+import ConsultSection from "@/components/home/ConsultSection";
+import AboutSection from "@/components/home/AboutSection";
 import { ApiResponse, AliProductsResponse } from "@/type/aliexpress-product";
 
 const mapCategories = (items: AliProductsResponse[]): Category[] => {
@@ -44,7 +44,7 @@ export default async function Home() {
     const payload: ApiResponse = await response.json();
     const items = (payload.data ?? []) as AliProductsResponse[];
     const categorySource = items.slice(10);
-    const productSource = items.slice(10, 20);
+    const productSource = items.slice(10, 26);
     products = productSource;
     categories = mapCategories(categorySource);
   } catch {

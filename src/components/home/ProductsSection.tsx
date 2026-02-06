@@ -26,45 +26,42 @@ export default function ProductsSection({
     if (!el) return;
 
     let rafId = 0;
-    const updatePages = () => {
-      const nextPageCount = Math.max(
-        1,
-        Math.ceil(el.scrollWidth / el.clientWidth),
-      );
-      setPageCount(nextPageCount);
-      const nextActive = Math.min(
-        nextPageCount - 1,
-        Math.max(0, Math.round(el.scrollLeft / el.clientWidth)),
-      );
-      setActivePage(nextActive);
+    const clamp = (value: number, min: number, max: number) =>
+      Math.min(max, Math.max(min, value));
+
+    const getPageCount = () =>
+      Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth));
+
+    const getActivePage = (count: number) =>
+      clamp(Math.round(el.scrollLeft / el.clientWidth), 0, count - 1);
+
+    const syncPagination = () => {
+      const nextCount = getPageCount();
+      setPageCount(nextCount);
+      setActivePage(getActivePage(nextCount));
     };
 
     const onScroll = () => {
       cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(updatePages);
+      rafId = requestAnimationFrame(syncPagination);
     };
 
-    const ro = new ResizeObserver(() => updatePages());
-    ro.observe(el);
+    const resizeObserver = new ResizeObserver(syncPagination);
+    resizeObserver.observe(el);
     el.addEventListener("scroll", onScroll, { passive: true });
-    updatePages();
+    syncPagination();
 
     return () => {
       cancelAnimationFrame(rafId);
       el.removeEventListener("scroll", onScroll);
-      ro.disconnect();
+      resizeObserver.disconnect();
     };
   }, []);
 
-  const scrollByCard = (direction: -1 | 1) => {
+  const scrollByPage = (direction: -1 | 1) => {
     const el = scrollerRef.current;
     if (!el) return;
-    const firstCard = el.querySelector<HTMLElement>(".product-card");
-    const cardWidth = firstCard?.offsetWidth ?? 0;
-    const gap = parseFloat(getComputedStyle(el).columnGap || "0");
-    const scrollAmount = (cardWidth + gap) * direction;
-    if (!scrollAmount) return;
-    el.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    el.scrollBy({ left: el.clientWidth * direction, behavior: "smooth" });
   };
 
   const scrollToPage = (pageIndex: number) => {
@@ -156,7 +153,7 @@ export default function ProductsSection({
 
           <button
             type="button"
-            onClick={() => scrollByCard(-1)}
+            onClick={() => scrollByPage(-1)}
             aria-label="Previous products"
             className="absolute -left-12 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border-none text-brand-ink hover:shadow-sm transition duration-500 hover:bg-white cursor-pointer md:grid"
           >
@@ -164,7 +161,7 @@ export default function ProductsSection({
           </button>
           <button
             type="button"
-            onClick={() => scrollByCard(1)}
+            onClick={() => scrollByPage(1)}
             aria-label="Next products"
             className="absolute -right-12 top-1/2 hidden h-10 w-10 -translate-y-1/2 place-items-center rounded-full border-none text-brand-ink hover:shadow-sm transition duration-500 hover:bg-white cursor-pointer md:grid"
           >
