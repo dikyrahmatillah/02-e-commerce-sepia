@@ -23,7 +23,10 @@ export default function FeaturedSection({
   const containerHeight = cardHeight * 2 + cardGap;
 
   return (
-    <section id="featured" className="mx-auto max-w-7xl rounded-2xl bg-white">
+    <section
+      id="featured"
+      className="mx-auto max-w-7xl rounded-3xl bg-white mb-20"
+    >
       <div className=" ">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex flex-col justify-center mx-auto py-6">

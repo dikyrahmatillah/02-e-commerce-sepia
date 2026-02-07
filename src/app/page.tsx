@@ -5,7 +5,6 @@ import CategoriesSection, {
 } from "@/components/home/CategoriesSection";
 import ProductsSection from "@/components/home/ProductsSection";
 import FeaturedSection from "@/components/home/FeaturedSection";
-import ConsultSection from "@/components/home/ConsultSection";
 import AboutSection from "@/components/home/AboutSection";
 import { ApiResponse, AliProductsResponse } from "@/type/aliexpress-product";
 
@@ -59,7 +58,6 @@ export default async function Home() {
       <CategoriesSection categories={categories} />
       <ProductsSection products={productSource} />
       <FeaturedSection products={reviewProducts} />
-      <ConsultSection />
       <AboutSection />
     </>
   );
