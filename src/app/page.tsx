@@ -4,7 +4,7 @@ import CategoriesSection, {
   Category,
 } from "@/components/home/CategoriesSection";
 import ProductsSection from "@/components/home/ProductsSection";
-import ReviewsSection from "@/components/home/ReviewsSection";
+import FeaturedSection from "@/components/home/FeaturedSection";
 import ConsultSection from "@/components/home/ConsultSection";
 import AboutSection from "@/components/home/AboutSection";
 import { ApiResponse, AliProductsResponse } from "@/type/aliexpress-product";
@@ -42,22 +42,23 @@ export default async function Home() {
       },
     );
     const payload: ApiResponse = await response.json();
-    const items = (payload.data ?? []) as AliProductsResponse[];
-    const categorySource = items.slice(10);
-    const productSource = items.slice(10, 26);
-    products = productSource;
+    products = (payload.data ?? []) as AliProductsResponse[];
+    const categorySource = products.slice(10);
+
     categories = mapCategories(categorySource);
   } catch {
     products = [];
     categories = [];
   }
+  const productSource = products.slice(10, 24);
+  const reviewProducts = products.slice(24, 30);
 
   return (
     <>
       <HeroSection />
       <CategoriesSection categories={categories} />
-      <ProductsSection products={products} />
-      <ReviewsSection />
+      <ProductsSection products={productSource} />
+      <FeaturedSection products={reviewProducts} />
       <ConsultSection />
       <AboutSection />
     </>
