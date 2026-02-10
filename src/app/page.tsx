@@ -5,7 +5,7 @@ import CategoriesSection, {
 } from "@/components/home/CategoriesSection";
 import ProductsSection from "@/components/home/ProductsSection";
 import FeaturedSection from "@/components/home/FeaturedSection";
-import AboutSection from "@/components/home/AboutSection";
+import CollectionSection from "@/components/home/CollectionSection";
 import { ApiResponse, AliProductsResponse } from "@/type/aliexpress-product";
 
 const mapCategories = (items: AliProductsResponse[]): Category[] => {
@@ -51,6 +51,7 @@ export default async function Home() {
   }
   const productSource = products.slice(10, 24);
   const reviewProducts = products.slice(24, 30);
+  const productSource2 = products.slice(30, 34);
 
   return (
     <>
@@ -58,7 +59,7 @@ export default async function Home() {
       <CategoriesSection categories={categories} />
       <ProductsSection products={productSource} />
       <FeaturedSection products={reviewProducts} />
-      <AboutSection />
+      <CollectionSection products={productSource2} />
     </>
   );
 }
