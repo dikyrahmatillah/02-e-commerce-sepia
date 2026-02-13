@@ -1,7 +1,10 @@
 "use client";
 
+import { AliProductsResponse, ApiResponse } from "@/type/aliexpress-product";
 import Image from "next/image";
 import Link from "next/link";
+import SearchIcon from "@/components/icons/SearchIcon";
+import FilterIcon from "@/components/icons/FilterIcon";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Suspense,
@@ -16,28 +19,6 @@ const discountOptions = [
   { name: "On Sale", value: "sale", color: "#8b4a2f" },
   { name: "Full Price", value: "full", color: "#d9c4ba" },
 ];
-
-type ApiProduct = {
-  id: string;
-  productTitle: string;
-  shortDesc: string;
-  image?: string[];
-  salePrice: number | null;
-  originalPrice: number | null;
-  discountPercentage: string | null;
-  category1?: string | null;
-  category2?: string | null;
-  storeName?: string | null;
-};
-
-type ApiResponse = {
-  message: string;
-  data: ApiProduct[];
-  page: number;
-  limit: number;
-  maxPage: number;
-  total: number;
-};
 
 const formatPrice = (value: number | null) => {
   if (value === null || Number.isNaN(value)) {
@@ -54,7 +35,7 @@ function ShopPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productsPerPage = 6;
-  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const [products, setProducts] = useState<AliProductsResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -87,7 +68,7 @@ function ShopPageContent() {
 
         const payload = (await response.json()) as ApiResponse;
         if (isMounted) {
-          setProducts(payload.data ?? []);
+          setProducts((payload.data ?? []) as AliProductsResponse[]);
           setCurrentPage(1);
         }
       } catch (fetchError) {
@@ -164,6 +145,7 @@ function ShopPageContent() {
       if (selectedDiscounts.length === 1) {
         const hasSale =
           item.salePrice !== null &&
+          item.salePrice !== undefined &&
           item.originalPrice !== null &&
           item.salePrice < item.originalPrice;
         if (selectedDiscounts.includes("sale") && !hasSale) {
@@ -206,6 +188,11 @@ function ShopPageContent() {
     );
   };
 
+  const truncate = (value: string | null | undefined, max = 60) => {
+    if (!value) return "";
+    return value.length > max ? value.slice(0, max - 1) + "…" : value;
+  };
+
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategories, selectedDiscounts, maxPriceFilter]);
@@ -215,51 +202,26 @@ function ShopPageContent() {
   };
 
   return (
-    <div className="bg-[#fbf7f4] text-[#2b1d17]">
-      <section className="relative overflow-hidden bg-[#fbf2ee] pt-28">
+    <>
+      <section className="relative overflow-hidden bg-cream pt-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-[#f3e1d8] blur-3xl" />
-          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-[#f2ded6] blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(#ead7ce_1px,transparent_1px)] opacity-60 [background-size:18px_18px]" />
+          <div className="absolute left-0 top-16 h-60 w-60 rounded-full blur-3xl" />
+          <div className="absolute right-0 top-10 h-72 w-72 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(#ead7ce_1.5px,transparent_1.5px)] opacity-60 bg-size-[24px_24px]" />
         </div>
 
-        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 pb-16 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#a37866]">
-            Beautiful skin starts here
+        <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 pb-16 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-brand-ink-soft">
+            Great Product start here
           </p>
           <h1 className="font-serif text-4xl font-semibold text-[#3a2a24] sm:text-5xl">
             Shop Our Products
           </h1>
           <p className="max-w-2xl text-sm text-[#7c5d52] sm:text-base">
-            Discover and indulge in our exclusive collection of skincare
-            solutions, meticulously crafted to enhance your natural beauty and
-            cater to your unique skin needs.
+            Discover and indulge in our exclusive collection of premium
+            products, meticulously curated to elevate your lifestyle and bring
+            unparalleled quality to your everyday experiences.
           </p>
-
-          <div className="relative mt-6 flex w-full items-center justify-between">
-            <div className="hidden flex-1 items-center justify-start sm:flex">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-white/80 shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
-                <Image
-                  src="/products/product-pouch.svg"
-                  alt="Skincare mask"
-                  width={120}
-                  height={120}
-                  className="h-16 w-16"
-                />
-              </div>
-            </div>
-            <div className="hidden flex-1 items-center justify-end sm:flex">
-              <div className="flex h-28 w-28 items-center justify-center rounded-full bg-white/80 shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
-                <Image
-                  src="/products/product-jar.svg"
-                  alt="Skincare jar"
-                  width={120}
-                  height={120}
-                  className="h-16 w-16"
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -268,22 +230,7 @@ function ShopPageContent() {
           <aside className="space-y-8">
             <div className="flex items-center gap-3 text-sm font-semibold text-[#3a2a24]">
               <span className="grid h-8 w-8 place-items-center rounded-full border border-[#ead7ce] bg-white">
-                <svg
-                  aria-hidden="true"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-[#8b4a2f]"
-                >
-                  <path d="M4 6h16" />
-                  <path d="M8 12h8" />
-                  <path d="M10 18h4" />
-                </svg>
+                <FilterIcon width={16} height={16} className="text-[#8b4a2f]" />
               </span>
               Filter
             </div>
@@ -401,20 +348,7 @@ function ShopPageContent() {
                   className="grid h-8 w-8 place-items-center rounded-full bg-[#8b4a2f] text-white"
                   aria-label="Search products"
                 >
-                  <svg
-                    aria-hidden="true"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="M21 21l-3.5-3.5" />
-                  </svg>
+                  <SearchIcon width={14} height={14} />
                 </button>
               </form>
             </div>
@@ -427,12 +361,13 @@ function ShopPageContent() {
                   item.image?.[0] ?? "/products/product-bottle.svg";
                 const hasSale =
                   item.salePrice !== null &&
+                  item.salePrice !== undefined &&
                   item.originalPrice !== null &&
                   item.salePrice < item.originalPrice;
                 const badgeText =
                   item.discountPercentage || (hasSale ? "Sale" : null);
                 const priceLabel =
-                  item.salePrice !== null
+                  item.salePrice !== null && item.salePrice !== undefined
                     ? formatPrice(item.salePrice)
                     : formatPrice(item.originalPrice);
                 const oldPriceLabel =
@@ -473,16 +408,16 @@ function ShopPageContent() {
                           {priceLabel}
                         </span>
                       </div>
-                      <h3 className="mt-4 text-lg font-semibold text-[#2b1d17]">
+                      <h3 className="mt-4 text-md font-semibold text-[#2b1d17]">
                         <Link
                           href={`/shop/${item.id}`}
-                          className="transition-colors hover:text-[#8b4a2f]"
+                          className="transition-colors hover:text-[#8b4a2f] "
                         >
                           {item.productTitle}
                         </Link>
                       </h3>
                       <p className="mt-4 text-sm leading-6 text-[#7c5d52]">
-                        {item.shortDesc}
+                        {truncate(item.shortDesc, 90)}
                       </p>
                       <div className="mt-6 flex flex-col gap-3">
                         <button
@@ -552,7 +487,7 @@ function ShopPageContent() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
 
