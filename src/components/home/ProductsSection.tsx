@@ -95,13 +95,11 @@ export default function ProductsSection({
                   key={item.id}
                   className="product-card relative flex w-70 flex-none snap-start flex-col overflow-hidden rounded-2xl bg-white sm:w-80"
                 >
-                  {item.originalPrice && (
-                    <div className="absolute left-4 top-4 z-10">
-                      <span className="inline-flex items-center rounded-full bg-brand-ink-soft px-3 py-1 text-xs font-semibold text-background">
-                        sale
-                      </span>
-                    </div>
-                  )}
+                  {item.discountPercentage ? (
+                    <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
+                      {item.discountPercentage}
+                    </span>
+                  ) : null}
 
                   <div className="flex items-center justify-center px-6 pt-10">
                     <Image
