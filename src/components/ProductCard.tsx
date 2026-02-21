@@ -2,6 +2,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { AliProductsResponse } from "@/type/aliexpress-product";
 
+export function ProductCardSkeleton() {
+  return (
+    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white animate-pulse">
+      {/* Image area */}
+      <div className="px-6 pt-4">
+        <div className="h-36 w-full rounded-lg bg-gray-200" />
+      </div>
+
+      {/* Content area */}
+      <div className="flex flex-1 flex-col px-6 py-4 gap-3">
+        {/* Price */}
+        <div className="h-4 w-20 rounded bg-gray-200" />
+        {/* Title — 3 lines */}
+        <div className="mt-2 space-y-2">
+          <div className="h-4 w-full rounded bg-gray-200" />
+          <div className="h-4 w-5/6 rounded bg-gray-200" />
+          <div className="h-4 w-4/6 rounded bg-gray-200" />
+        </div>
+        {/* Description — 3 lines */}
+        <div className="mt-2 space-y-2">
+          <div className="h-3 w-full rounded bg-gray-100" />
+          <div className="h-3 w-11/12 rounded bg-gray-100" />
+          <div className="h-3 w-3/4 rounded bg-gray-100" />
+        </div>
+      </div>
+
+      {/* Button */}
+      <div className="h-10 w-full bg-gray-200" />
+    </article>
+  );
+}
+
 interface ProductCardProps {
   product: AliProductsResponse;
 }
@@ -16,14 +48,18 @@ export default function ProductCard({ product }: ProductCardProps) {
       )}
 
       <div className="flex items-center justify-center px-6 pt-4">
-        <Image
-          src={product.image[0]}
-          alt={product.productTitle}
-          width={220}
-          height={220}
-          unoptimized
-          className="h-36 w-full object-contain"
-        />
+        {product.image[0] ? (
+          <Image
+            src={product.image[0]}
+            alt={product.productTitle}
+            width={220}
+            height={220}
+            unoptimized
+            className="h-36 w-full object-contain"
+          />
+        ) : (
+          <div className="h-36 w-full rounded-lg bg-gray-100" />
+        )}
       </div>
 
       <div className="flex flex-1 flex-col px-6 py-4">

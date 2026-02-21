@@ -3,7 +3,7 @@
 import { AliProductsResponse, ApiResponse } from "@/type/aliexpress-product";
 import SearchIcon from "@/components/icons/SearchIcon";
 import FilterIcon from "@/components/icons/FilterIcon";
-import ProductCard from "@/components/ProductCard";
+import ProductCard, { ProductCardSkeleton } from "@/components/ProductCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Suspense,
@@ -187,11 +187,6 @@ function ShopPageContent() {
     );
   };
 
-  const truncate = (value: string | null | undefined, max = 60) => {
-    if (!value) return "";
-    return value.length > max ? value.slice(0, max - 1) + "…" : value;
-  };
-
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategories, selectedDiscounts, maxPriceFilter]);
@@ -355,16 +350,14 @@ function ShopPageContent() {
 
           <div className="space-y-8">
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {pagedProducts.map((item) => (
-                <ProductCard key={item.id} product={item} />
-              ))}
+              {isLoading
+                ? Array.from({ length: 6 }, (_, i) => (
+                    <ProductCardSkeleton key={i} />
+                  ))
+                : pagedProducts.map((item) => (
+                    <ProductCard key={item.id} product={item} />
+                  ))}
             </div>
-
-            {isLoading ? (
-              <div className="rounded-2xl border border-dashed border-[#ead7ce] bg-white px-6 py-10 text-center text-sm text-[#7c5d52]">
-                Loading products...
-              </div>
-            ) : null}
 
             {error ? (
               <div className="rounded-2xl border border-dashed border-[#f0ddd5] bg-white px-6 py-10 text-center text-sm text-[#b43a2a]">
