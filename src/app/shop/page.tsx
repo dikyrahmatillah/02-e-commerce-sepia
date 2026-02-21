@@ -16,11 +16,6 @@ import {
   type SetStateAction,
 } from "react";
 
-const discountOptions = [
-  { name: "On Sale", value: "sale", color: "#8b4a2f" },
-  { name: "Full Price", value: "full", color: "#d9c4ba" },
-];
-
 const formatPrice = (value: number | null) => {
   if (value === null || Number.isNaN(value)) {
     return "N/A";
@@ -141,37 +136,22 @@ function ShopPageContent() {
 
   const filteredProducts = useMemo(() => {
     return products.filter((item) => {
-      if (selectedCategories.length > 0) {
-        const matchesCategory = selectedCategories.some(
-          (category) => item.category1 === category,
-        );
-        if (!matchesCategory) {
-          return false;
-        }
-      }
+      const matchesCategory =
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(item.category1);
 
-      if (selectedDiscounts.length === 1) {
-        const hasSale =
-          item.salePrice !== null &&
-          item.salePrice !== undefined &&
-          item.originalPrice !== null &&
-          item.salePrice < item.originalPrice;
-        if (selectedDiscounts.includes("sale") && !hasSale) {
-          return false;
-        }
-        if (selectedDiscounts.includes("full") && hasSale) {
-          return false;
-        }
-      }
+      const hasSale =
+        item.salePrice != null &&
+        item.originalPrice != null &&
+        item.salePrice < item.originalPrice;
 
-      if (maxPriceFilter !== null) {
-        const priceValue = item.salePrice ?? item.originalPrice;
-        if (priceValue !== null && priceValue > maxPriceFilter) {
-          return false;
-        }
-      }
+      const matchesDiscount = !selectedDiscounts.includes("sale") || hasSale;
 
-      return true;
+      const price = item.salePrice ?? item.originalPrice;
+      const matchesPrice =
+        maxPriceFilter === null || price === null || price <= maxPriceFilter;
+
+      return matchesCategory && matchesDiscount && matchesPrice;
     });
   }, [products, selectedCategories, selectedDiscounts, maxPriceFilter]);
 
@@ -278,26 +258,18 @@ function ShopPageContent() {
                 Discount
               </p>
               <div className="space-y-2">
-                {discountOptions.map((item) => (
-                  <label
-                    key={item.name}
-                    className="flex items-center gap-3 text-sm text-[#5f4338]"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedDiscounts.includes(item.value)}
-                      onChange={() =>
-                        toggleSelection(item.value, setSelectedDiscounts)
-                      }
-                      className="h-4 w-4 rounded border-[#d9c4ba] text-[#8b4a2f] accent-[#8b4a2f]"
-                    />
-                    <span
-                      className="h-3 w-3 rounded-full"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    {item.name}
-                  </label>
-                ))}
+                <label className="flex items-center gap-3 text-sm text-brand-ink cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedDiscounts.includes("sale")}
+                    onChange={() =>
+                      toggleSelection("sale", setSelectedDiscounts)
+                    }
+                    className="h-4 w-4 rounded  accent-(--brand-ink) cursor-pointer"
+                  />
+                  <span className="h-3 w-3 rounded-full bg-brand-ink" />
+                  On Sale
+                </label>
               </div>
             </div>
 
