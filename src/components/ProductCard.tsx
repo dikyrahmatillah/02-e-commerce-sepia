@@ -5,22 +5,17 @@ import { AliProductsResponse } from "@/type/aliexpress-product";
 export function ProductCardSkeleton() {
   return (
     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white animate-pulse">
-      {/* Image area */}
       <div className="px-6 pt-4">
         <div className="h-36 w-full rounded-lg bg-gray-200" />
       </div>
 
-      {/* Content area */}
       <div className="flex flex-1 flex-col px-6 py-4 gap-3">
-        {/* Price */}
         <div className="h-4 w-20 rounded bg-gray-200" />
-        {/* Title — 3 lines */}
         <div className="mt-2 space-y-2">
           <div className="h-4 w-full rounded bg-gray-200" />
           <div className="h-4 w-5/6 rounded bg-gray-200" />
           <div className="h-4 w-4/6 rounded bg-gray-200" />
         </div>
-        {/* Description — 3 lines */}
         <div className="mt-2 space-y-2">
           <div className="h-3 w-full rounded bg-gray-100" />
           <div className="h-3 w-11/12 rounded bg-gray-100" />
@@ -28,7 +23,6 @@ export function ProductCardSkeleton() {
         </div>
       </div>
 
-      {/* Button */}
       <div className="h-10 w-full bg-gray-200" />
     </article>
   );

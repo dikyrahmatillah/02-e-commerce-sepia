@@ -4,6 +4,7 @@ import { AliProductsResponse, ApiResponse } from "@/type/aliexpress-product";
 import SearchIcon from "@/components/icons/SearchIcon";
 import FilterIcon from "@/components/icons/FilterIcon";
 import ProductCard, { ProductCardSkeleton } from "@/components/ProductCard";
+import Pagination from "@/components/Pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Suspense,
@@ -67,7 +68,14 @@ function ShopPageContent() {
 
         const payload = (await response.json()) as ApiResponse;
         if (isMounted) {
-          setProducts((payload.data ?? []) as AliProductsResponse[]);
+          const valid = ((payload.data ?? []) as AliProductsResponse[]).filter(
+            (p) =>
+              p.productTitle?.trim() &&
+              Array.isArray(p.image) &&
+              p.image.some((url) => url?.trim()) &&
+              (p.salePrice != null || p.originalPrice != null),
+          );
+          setProducts(valid);
           setCurrentPage(1);
         }
       } catch (fetchError) {
@@ -252,9 +260,6 @@ function ShopPageContent() {
                     </span>
                   </label>
                 ))}
-                {categoryOptions.length === 0 ? (
-                  <p className="text-xs text-[#b19c92]">No categories found.</p>
-                ) : null}
               </div>
             </div>
 
@@ -365,39 +370,11 @@ function ShopPageContent() {
               </div>
             ) : null}
 
-            {!isLoading && !error && filteredProducts.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-[#ead7ce] bg-white px-6 py-10 text-center text-sm text-[#7c5d52]">
-                No products match the selected filters.
-              </div>
-            ) : null}
-
-            <div className="flex items-center justify-center gap-2 text-sm">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => goToPage(page)}
-                    className={`h-9 w-9 rounded-md border border-[#ead7ce] ${
-                      page === currentPage
-                        ? "bg-[#8b4a2f] text-white"
-                        : "bg-white text-[#5f4338]"
-                    }`}
-                    aria-current={page === currentPage ? "page" : undefined}
-                  >
-                    {page}
-                  </button>
-                ),
-              )}
-              <button
-                type="button"
-                onClick={() => goToPage(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="h-9 rounded-md border border-[#ead7ce] bg-white px-4 text-[#5f4338] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Next Page
-              </button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(page) => goToPage(page)}
+            />
           </div>
         </div>
       </section>
