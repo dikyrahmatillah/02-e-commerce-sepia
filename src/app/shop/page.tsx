@@ -36,7 +36,7 @@ function ShopPageContent() {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const searchQuery = searchParams.get("q") ?? "";
+  const searchQuery = searchParams.get("query") ?? "";
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedDiscounts, setSelectedDiscounts] = useState<string[]>([]);
   const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
@@ -52,15 +52,13 @@ function ShopPageContent() {
       try {
         setIsLoading(true);
         setError(null);
-        const params = new URLSearchParams({ page: "2" });
+        const params = new URLSearchParams();
         if (query.trim()) {
-          params.set("q", query.trim());
+          params.set("query", query.trim());
         }
         const response = await fetch(`/api/products?${params.toString()}`);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch products.");
-        }
+        if (!response.ok) throw new Error("Failed to fetch products.");
 
         const payload = (await response.json()) as ApiResponse;
         if (isMounted) {
@@ -191,22 +189,22 @@ function ShopPageContent() {
       <section className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)]">
           <aside className="space-y-8">
-            <div className="flex items-center gap-3 text-sm font-semibold text-[#3a2a24]">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-[#ead7ce] bg-white">
-                <FilterIcon width={16} height={16} className="text-[#8b4a2f]" />
+            <div className="flex items-center gap-3 text-sm font-semibold text-brand-ink">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-brand-ink-soft bg-white">
+                <FilterIcon width={16} height={16} className="text-brand-ink" />
               </span>
               Filter
             </div>
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                 Category
               </p>
               <div className="space-y-3">
                 {categoryOptions.map((item) => (
                   <label
                     key={item.label}
-                    className="flex items-center gap-3 text-sm text-[#5f4338]"
+                    className="flex items-center gap-3 text-sm text-brand-ink cursor-pointer"
                   >
                     <input
                       type="checkbox"
@@ -214,7 +212,7 @@ function ShopPageContent() {
                       onChange={() =>
                         toggleSelection(item.label, setSelectedCategories)
                       }
-                      className="h-4 w-4 rounded border-[#d9c4ba] text-[#8b4a2f] accent-[#8b4a2f]"
+                      className="h-4 w-4 rounded accent-(--brand-ink) cursor-pointer"
                     />
                     <span>
                       {item.label} ({item.count})
@@ -225,7 +223,7 @@ function ShopPageContent() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                 Price
               </p>
               <input
@@ -237,9 +235,9 @@ function ShopPageContent() {
                 onChange={(event) =>
                   setMaxPriceFilter(Number(event.target.value))
                 }
-                className="w-full accent-[#8b4a2f]"
+                className="w-full accent-(--brand-ink) cursor-pointer"
               />
-              <div className="flex items-center justify-between text-xs text-[#7c5d52]">
+              <div className="flex items-center justify-between text-xs text-brand-ink-soft">
                 <div className="rounded-md border border-[#ead7ce] bg-white px-3 py-2">
                   {formatPrice(minPrice)}
                 </div>
@@ -247,14 +245,14 @@ function ShopPageContent() {
                   {formatPrice(maxPriceFilter ?? maxPrice)}
                 </div>
               </div>
-              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-[#a37866]">
+              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-brand-ink-soft">
                 <span>Min. Price</span>
                 <span>Max. Price</span>
               </div>
             </div>
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                 Discount
               </p>
               <div className="space-y-2">
@@ -274,16 +272,16 @@ function ShopPageContent() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                 Search
               </p>
               <form
-                className="flex items-center rounded-full border border-[#ead7ce] bg-white px-4 py-2"
+                className="flex items-center rounded-full border border-brand-ink-soft bg-white px-4 py-2"
                 onSubmit={(event) => {
                   event.preventDefault();
                   const trimmed = searchTerm.trim();
                   const nextUrl = trimmed
-                    ? `/shop?q=${encodeURIComponent(trimmed)}`
+                    ? `/shop?query=${encodeURIComponent(trimmed)}`
                     : "/shop";
                   router.push(nextUrl);
                 }}
@@ -293,11 +291,11 @@ function ShopPageContent() {
                   placeholder="Search products..."
                   value={searchTerm}
                   onChange={(event) => setSearchTerm(event.target.value)}
-                  className="w-full bg-transparent text-sm text-[#5f4338] outline-none placeholder:text-[#b19c92]"
+                  className="w-full bg-transparent text-sm text-brand-ink outline-none placeholder:text-brand-ink-soft"
                 />
                 <button
                   type="submit"
-                  className="grid h-8 w-8 place-items-center rounded-full bg-[#8b4a2f] text-white"
+                  className="grid h-8 w-8 place-items-center rounded-full bg-brand-ink text-white"
                   aria-label="Search products"
                 >
                   <SearchIcon width={14} height={14} />
@@ -317,11 +315,11 @@ function ShopPageContent() {
                   ))}
             </div>
 
-            {error ? (
-              <div className="rounded-2xl border border-dashed border-[#f0ddd5] bg-white px-6 py-10 text-center text-sm text-[#b43a2a]">
+            {error && (
+              <div className="rounded-2xl border border-dashed border-brand-ink-soft bg-white px-6 py-10 text-center text-sm text-[#b43a2a]">
                 {error}
               </div>
-            ) : null}
+            )}
 
             <Pagination
               currentPage={currentPage}
@@ -337,17 +335,7 @@ function ShopPageContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="bg-[#fbf7f4] text-[#2b1d17]">
-          <section className="mx-auto max-w-6xl px-6 py-16">
-            <div className="rounded-2xl border border-dashed border-[#ead7ce] bg-white px-6 py-10 text-center text-sm text-[#7c5d52]">
-              Loading shop...
-            </div>
-          </section>
-        </div>
-      }
-    >
+    <Suspense>
       <ShopPageContent />
     </Suspense>
   );

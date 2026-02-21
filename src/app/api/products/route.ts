@@ -2,13 +2,11 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const page = searchParams.get("page") ?? "1";
-  const query = searchParams.get("q");
+  const query = searchParams.get("query");
 
   const upstreamUrl = new URL(`${process.env.API_BASE_URL}/products`);
-  upstreamUrl.searchParams.set("page", page);
   if (query) {
-    upstreamUrl.searchParams.set("q", query);
+    upstreamUrl.searchParams.set("query", query);
   }
 
   try {
