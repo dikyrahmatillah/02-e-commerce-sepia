@@ -78,8 +78,8 @@ export default function ProductsSection({
             Popular Skin Products for your Daily Use
           </h2>
           <p className="mx-auto mt-4 text-base text-brand-ink-soft">
-            Our picks for your skin: the products we love and recommend for a
-            glowing you
+            Our picks for your need: the products we love and recommend for a
+            well-being you
           </p>
         </div>
 
@@ -93,7 +93,7 @@ export default function ProductsSection({
               return (
                 <article
                   key={item.id}
-                  className="product-card relative flex w-70 flex-none snap-start flex-col overflow-hidden rounded-2xl bg-white sm:w-80"
+                  className="product-card relative flex h-full flex-col overflow-hidden rounded-2xl bg-white"
                 >
                   {item.discountPercentage ? (
                     <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
@@ -105,14 +105,14 @@ export default function ProductsSection({
                     <Image
                       src={item.image[0]}
                       alt={item.productTitle}
-                      width={520}
-                      height={320}
+                      width={200}
+                      height={200}
                       unoptimized
-                      className="h-40 w-full max-w-65 object-contain"
+                      className="h-36 w-full max-w-65 object-contain"
                     />
                   </div>
 
-                  <div className="flex flex-1 justify-between flex-col mt-10">
+                  <div className="flex flex-1 flex-col p-5">
                     <div className="flex items-center gap-2 px-6">
                       {item.originalPrice ? (
                         <>

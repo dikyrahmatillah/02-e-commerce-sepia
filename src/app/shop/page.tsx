@@ -378,35 +378,38 @@ function ShopPageContent() {
                 return (
                   <article
                     key={item.id}
-                    className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#efe2db] bg-white shadow-[0_18px_45px_rgba(160,114,90,0.18)]"
+                    className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white"
                   >
-                    {badgeText ? (
+                    {item.discountPercentage && (
                       <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
-                        {badgeText}
+                        {item.discountPercentage}
                       </span>
-                    ) : null}
-                    <Link
-                      href={`/shop/${item.id}`}
-                      className="flex items-center justify-center bg-white px-6 pt-10"
-                    >
+                    )}
+                    <div className="flex items-center justify-center px-6 pt-4">
                       <Image
-                        src={imageSrc}
+                        src={item.image[0]}
                         alt={item.productTitle}
-                        width={240}
+                        width={200}
                         height={200}
                         className="h-36 w-full object-contain"
                       />
-                    </Link>
-                    <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-                      <div className="flex items-center gap-2 text-sm">
-                        {oldPriceLabel ? (
-                          <span className="font-semibold text-[#b8aaa3] line-through">
-                            {oldPriceLabel}
+                    </div>
+                    <div className="flex flex-1 flex-col px-6 py-4">
+                      <div className="flex items-center gap-2 ">
+                        {item.originalPrice ? (
+                          <>
+                            <span className="text-sm font-semibold text-muted line-through">
+                              ${item.originalPrice}
+                            </span>
+                            <span className="text-base font-bold">
+                              ${item.salePrice}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-sm font-bold">
+                            ${item.salePrice}
                           </span>
-                        ) : null}
-                        <span className="font-semibold text-[#2b1d17]">
-                          {priceLabel}
-                        </span>
+                        )}
                       </div>
                       <h3 className="mt-4 text-md font-semibold text-[#2b1d17]">
                         <Link
@@ -419,20 +422,16 @@ function ShopPageContent() {
                       <p className="mt-4 text-sm leading-6 text-[#7c5d52]">
                         {truncate(item.shortDesc, 90)}
                       </p>
-                      <div className="mt-6 flex flex-col gap-3">
+                    </div>
+                    <div className=" flex flex-col gap-3">
+                      <Link href={`/shop/${item.id}`}>
                         <button
                           type="button"
-                          className="w-full rounded-b-2xl rounded-t-md bg-[#8b4a2f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7a4029]"
-                        >
-                          Add To Cart +
-                        </button>
-                        <Link
-                          href={`/shop/${item.id}`}
-                          className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#8b4a2f]"
+                          className="w-full bg-[#8b4a2f] tracking-widest py-3 text-xs font-semibold text-white transition-colors hover:bg-[#7a4029]"
                         >
                           View Details
-                        </Link>
-                      </div>
+                        </button>
+                      </Link>
                     </div>
                   </article>
                 );
