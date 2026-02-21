@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AliProductsResponse } from "@/type/aliexpress-product";
+import ProductCard from "@/components/ProductCard";
 
 export default function ProductsSection({
   products,
@@ -89,64 +88,11 @@ export default function ProductsSection({
             className="no-scrollbar flex snap-x snap-mandatory gap-6 pb-8 overflow-x-auto "
             aria-label="Product carousel"
           >
-            {products.map((item) => {
-              return (
-                <article
-                  key={item.id}
-                  className="product-card relative flex h-full flex-col overflow-hidden rounded-2xl bg-white"
-                >
-                  {item.discountPercentage ? (
-                    <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
-                      {item.discountPercentage}
-                    </span>
-                  ) : null}
-
-                  <div className="flex items-center justify-center px-6 pt-10">
-                    <Image
-                      src={item.image[0]}
-                      alt={item.productTitle}
-                      width={200}
-                      height={200}
-                      unoptimized
-                      className="h-36 w-full max-w-65 object-contain"
-                    />
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-5">
-                    <div className="flex items-center gap-2 px-6">
-                      {item.originalPrice ? (
-                        <>
-                          <span className="text-sm font-semibold text-muted line-through">
-                            ${item.originalPrice}
-                          </span>
-                          <span className="text-base font-bold">
-                            ${item.salePrice}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-sm font-bold">
-                          ${item.salePrice}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="mt-2 text-xl line-clamp-5 font-semibold px-6">
-                      {item.productTitle}
-                    </h3>
-                    <p className="mt-4 line-clamp-3 text-sm leading-5 text-brand-ink-soft px-6">
-                      {item.shortDesc}
-                    </p>
-
-                    <Link
-                      href={`/shop/${item.id}`}
-                      className="mt-8 bg-brand-ink py-3 text-sm font-semibold text-background text-center hover:bg-brand-ink-soft hover:text-brand-ink  cursor-pointer"
-                    >
-                      See Details
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
+            {products.map((item) => (
+              <div key={item.id} className="product-card">
+                <ProductCard product={item} />
+              </div>
+            ))}
           </div>
 
           <button

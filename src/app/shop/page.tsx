@@ -1,10 +1,9 @@
 "use client";
 
 import { AliProductsResponse, ApiResponse } from "@/type/aliexpress-product";
-import Image from "next/image";
-import Link from "next/link";
 import SearchIcon from "@/components/icons/SearchIcon";
 import FilterIcon from "@/components/icons/FilterIcon";
+import ProductCard from "@/components/ProductCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Suspense,
@@ -356,86 +355,9 @@ function ShopPageContent() {
 
           <div className="space-y-8">
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {pagedProducts.map((item) => {
-                const imageSrc =
-                  item.image?.[0] ?? "/products/product-bottle.svg";
-                const hasSale =
-                  item.salePrice !== null &&
-                  item.salePrice !== undefined &&
-                  item.originalPrice !== null &&
-                  item.salePrice < item.originalPrice;
-                const badgeText =
-                  item.discountPercentage || (hasSale ? "Sale" : null);
-                const priceLabel =
-                  item.salePrice !== null && item.salePrice !== undefined
-                    ? formatPrice(item.salePrice)
-                    : formatPrice(item.originalPrice);
-                const oldPriceLabel =
-                  hasSale && item.originalPrice !== null
-                    ? formatPrice(item.originalPrice)
-                    : null;
-
-                return (
-                  <article
-                    key={item.id}
-                    className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white"
-                  >
-                    {item.discountPercentage && (
-                      <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
-                        {item.discountPercentage}
-                      </span>
-                    )}
-                    <div className="flex items-center justify-center px-6 pt-4">
-                      <Image
-                        src={item.image[0]}
-                        alt={item.productTitle}
-                        width={200}
-                        height={200}
-                        className="h-36 w-full object-contain"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col px-6 py-4">
-                      <div className="flex items-center gap-2 ">
-                        {item.originalPrice ? (
-                          <>
-                            <span className="text-sm font-semibold text-muted line-through">
-                              ${item.originalPrice}
-                            </span>
-                            <span className="text-base font-bold">
-                              ${item.salePrice}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="text-sm font-bold">
-                            ${item.salePrice}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="mt-4 text-md font-semibold text-[#2b1d17]">
-                        <Link
-                          href={`/shop/${item.id}`}
-                          className="transition-colors hover:text-[#8b4a2f] "
-                        >
-                          {item.productTitle}
-                        </Link>
-                      </h3>
-                      <p className="mt-4 text-sm leading-6 text-[#7c5d52]">
-                        {truncate(item.shortDesc, 90)}
-                      </p>
-                    </div>
-                    <div className=" flex flex-col gap-3">
-                      <Link href={`/shop/${item.id}`}>
-                        <button
-                          type="button"
-                          className="w-full bg-[#8b4a2f] tracking-widest py-3 text-xs font-semibold text-white transition-colors hover:bg-[#7a4029]"
-                        >
-                          View Details
-                        </button>
-                      </Link>
-                    </div>
-                  </article>
-                );
-              })}
+              {pagedProducts.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
             </div>
 
             {isLoading ? (
