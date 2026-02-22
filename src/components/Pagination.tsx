@@ -22,10 +22,10 @@ export default function Pagination({
           key={page}
           type="button"
           onClick={() => onPageChange(page)}
-          className={`h-9 w-9 rounded-md border border-[#ead7ce] ${
+          className={`h-9 w-9 rounded-md border border-brand-ink-soft cursor-pointer ${
             page === currentPage
-              ? "bg-[#8b4a2f] text-white"
-              : "bg-white text-[#5f4338]"
+              ? "bg-brand-ink text-white"
+              : "bg-white text-brand-ink"
           }`}
           aria-current={page === currentPage ? "page" : undefined}
         >
@@ -37,7 +37,7 @@ export default function Pagination({
         type="button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="h-9 rounded-md border border-[#ead7ce] bg-white px-4 text-[#5f4338] disabled:cursor-not-allowed disabled:opacity-60"
+        className="h-9 rounded-md border border-brand-ink-soft bg-white px-4 text-brand-ink disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
       >
         Next Page
       </button>

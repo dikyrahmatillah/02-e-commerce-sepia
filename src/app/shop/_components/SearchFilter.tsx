@@ -32,7 +32,7 @@ export default function SearchFilter({
         />
         <button
           type="submit"
-          className="grid h-8 w-8 place-items-center rounded-full bg-brand-ink text-white"
+          className="grid h-8 w-8 place-items-center rounded-full bg-brand-ink text-white cursor-pointer"
           aria-label="Search products"
         >
           <SearchIcon width={14} height={14} />

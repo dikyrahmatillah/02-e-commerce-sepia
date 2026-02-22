@@ -80,7 +80,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Link href={`/shop/${product.id}`}>
           <button
             type="button"
-            className="w-full bg-brand-ink tracking-widest py-3 text-xs font-semibold text-white transition-colors hover:bg-brand-ink-soft"
+            className="w-full bg-brand-ink tracking-widest py-3 text-xs font-semibold text-white transition-colors hover:bg-brand-ink-soft cursor-pointer"
           >
             View Details
           </button>
