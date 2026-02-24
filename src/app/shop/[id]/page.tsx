@@ -4,6 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import Search from "@mui/icons-material/Search";
+import Star from "@mui/icons-material/Star";
+import StarBorder from "@mui/icons-material/StarBorder";
+import Check from "@mui/icons-material/Check";
+import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import LocalShipping from "@mui/icons-material/LocalShipping";
+import Verified from "@mui/icons-material/Verified";
 
 type ProductDetail = {
   id: string;
@@ -305,9 +312,9 @@ export default function ProductDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="bg-[#fbf7f4] text-[#2b1d17]">
+      <div className="bg-[#fbf7f4] text-brand-ink">
         <section className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center px-6 py-24">
-          <div className="rounded-2xl border border-[#efe2db] bg-white px-8 py-6 text-sm text-[#6e5146] shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
+          <div className="rounded-2xl border border-brand-ink-soft bg-white px-8 py-6 text-sm text-brand-ink shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
             Loading product details...
           </div>
         </section>
@@ -317,9 +324,9 @@ export default function ProductDetailPage() {
 
   if (!product || errorMessage) {
     return (
-      <div className="bg-[#fbf7f4] text-[#2b1d17]">
+      <div className="bg-[#fbf7f4] text-brand-ink">
         <section className="mx-auto flex min-h-[60vh] max-w-6xl items-center justify-center px-6 py-24">
-          <div className="rounded-2xl border border-[#efe2db] bg-white px-8 py-6 text-sm text-[#6e5146] shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
+          <div className="rounded-2xl border border-brand-ink-soft bg-white px-8 py-6 text-sm text-brand-ink shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
             {errorMessage ?? "Product not found."}
           </div>
         </section>
@@ -332,25 +339,25 @@ export default function ProductDetailPage() {
     : [product.imageSrc];
 
   return (
-    <div className="bg-[#fbf7f4] text-[#2b1d17]">
-      <section className="relative overflow-hidden bg-[#fbf2ee] pt-24">
+    <div className="bg-white text-brand-ink">
+      <section className="relative overflow-hidden bg-white pt-24">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-[#f3e1d8] blur-3xl" />
-          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-[#f2ded6] blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(#ead7ce_1px,transparent_1px)] opacity-60 [background-size:18px_18px]" />
+          <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-white blur-3xl" />
+          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-white blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(#ead7ce_1px,transparent_1px)] opacity-60 bg-size-[18px_18px]" />
         </div>
 
         <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-6 pb-4">
-          <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-[#2b1d17]">
+          <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-brand-ink">
             <Link href="/" className="underline underline-offset-4">
               Home
             </Link>
-            <span className="text-[#6e5146]">/</span>
+            <span className="text-brand-ink-soft">/</span>
             <Link href="/shop" className="underline underline-offset-4">
               {product.category}
             </Link>
-            <span className="text-[#6e5146]">/</span>
-            <span className="font-normal text-[#2b1d17]">{product.name}</span>
+            <span className="text-brand-ink-soft">/</span>
+            <span className="font-normal text-brand-ink">{product.name}</span>
           </nav>
         </div>
       </section>
@@ -358,8 +365,8 @@ export default function ProductDetailPage() {
       <section className="mx-auto max-w-6xl px-6 pb-16">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div className="space-y-6">
-            <div className="rounded-3xl border border-[#efe2db] bg-white p-8 shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
-              <div className="relative flex h-full items-center justify-center rounded-2xl bg-[#fff9f6] p-6">
+            <div className="rounded-3xl border border-brand-ink-soft bg-white p-8 shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
+              <div className="relative flex h-full items-center justify-center rounded-2xl bg-white p-6">
                 <Image
                   src={galleryImages[activeImage] ?? product.imageSrc}
                   alt={product.name}
@@ -368,21 +375,8 @@ export default function ProductDetailPage() {
                   className="h-90 w-full object-contain"
                   unoptimized
                 />
-                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-[#ead7ce] bg-white text-[#8b4a2f]">
-                  <svg
-                    aria-hidden="true"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="M21 21l-3.5-3.5" />
-                  </svg>
+                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-brand-ink-soft bg-white text-brand-ink">
+                  <Search fontSize="small" className="text-brand-ink" />
                 </span>
               </div>
             </div>
@@ -417,31 +411,27 @@ export default function ProductDetailPage() {
 
           <div className="space-y-6">
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs text-[#6e5146]">
-                <div className="flex items-center gap-1 text-[#8b4a2f]">
-                  {stars.map((index) => (
-                    <svg
-                      key={index}
-                      aria-hidden="true"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className={
-                        index < Math.round(product.rating)
-                          ? "text-[#8b4a2f]"
-                          : "text-[#d8c7c0]"
-                      }
-                    >
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                    </svg>
-                  ))}
+              <div className="flex items-center gap-2 text-xs text-brand-ink">
+                <div className="flex items-center gap-1 text-brand-ink">
+                  {stars.map((index) => {
+                    const filled = index < Math.round(product.rating);
+                    const Icon = filled ? Star : StarBorder;
+                    return (
+                      <Icon
+                        key={index}
+                        fontSize="small"
+                        className={
+                          filled ? "text-brand-ink" : "text-brand-ink-soft"
+                        }
+                      />
+                    );
+                  })}
                 </div>
                 <span>
                   ({product.reviews.length} customer review) • {product.rating}
                 </span>
               </div>
-              <h1 className="text-3xl font-semibold text-[#2b1d17]">
+              <h1 className="text-3xl font-semibold text-brand-ink">
                 {product.name}
               </h1>
             </div>
@@ -452,37 +442,37 @@ export default function ProductDetailPage() {
                   {product.oldPrice}
                 </span>
               ) : null}
-              <span className="text-2xl font-semibold text-[#2b1d17]">
+              <span className="text-2xl font-semibold text-brand-ink">
                 {product.price}
               </span>
               {product.badge ? (
-                <span className="rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
+                <span className="rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-brand-ink">
                   {product.badge}
                 </span>
               ) : null}
             </div>
 
-            <p className="text-sm leading-6 text-[#7c5d52]">
+            <p className="text-sm leading-6 text-brand-ink-soft">
               {product.shortDescription}
             </p>
 
             <div className="flex items-center gap-4">
-              <div className="flex items-center overflow-hidden rounded-lg border border-[#ead7ce] bg-white">
+              <div className="flex items-center overflow-hidden rounded-lg border border-brand-ink-soft bg-white">
                 <button
                   type="button"
                   onClick={decrease}
-                  className="h-10 w-10 text-lg text-[#6e5146]"
+                  className="h-10 w-10 text-lg text-brand-ink-soft"
                   aria-label="Decrease quantity"
                 >
                   -
                 </button>
-                <span className="grid h-10 w-12 place-items-center text-sm font-semibold text-[#2b1d17]">
+                <span className="grid h-10 w-12 place-items-center text-sm font-semibold text-brand-ink">
                   {quantity}
                 </span>
                 <button
                   type="button"
                   onClick={increase}
-                  className="h-10 w-10 text-lg text-[#6e5146]"
+                  className="h-10 w-10 text-lg text-brand-ink-soft"
                   aria-label="Increase quantity"
                 >
                   +
@@ -497,87 +487,49 @@ export default function ProductDetailPage() {
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-4 border-t border-[#efe2db] pt-4 text-xs text-[#6e5146]">
+            <div className="flex flex-wrap gap-4 border-t border-brand-ink-soft pt-4 text-xs text-brand-ink-soft">
               <span>
-                SKU: <strong className="text-[#2b1d17]">{product.sku}</strong>
+                SKU: <strong className="text-brand-ink">{product.sku}</strong>
               </span>
               <span>
                 Category:{" "}
-                <strong className="text-[#2b1d17]">{product.category}</strong>
+                <strong className="text-brand-ink">{product.category}</strong>
               </span>
               <span>
                 Brands:{" "}
-                <strong className="text-[#2b1d17]">{product.brand}</strong>
+                <strong className="text-brand-ink">{product.brand}</strong>
               </span>
               <span>
                 Tags:{" "}
-                <strong className="text-[#2b1d17]">
+                <strong className="text-brand-ink">
                   {product.tags.join(", ")}
                 </strong>
               </span>
             </div>
 
-            <div className="rounded-2xl border border-[#efe2db] bg-white p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+            <div className="rounded-2xl border border-brand-ink-soft bg-white p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                 Shop with confidence
               </p>
-              <ul className="mt-4 space-y-3 text-sm text-[#6e5146]">
+              <ul className="mt-4 space-y-3 text-sm text-brand-ink">
                 <li className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#f7eee9] text-[#8b4a2f]">
-                    <svg
-                      aria-hidden="true"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M20 7h-7l-1-2H5L4 7" />
-                      <path d="M4 7l2 11h12l2-11" />
-                    </svg>
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand-ink">
+                    <ShoppingCart fontSize="small" className="text-brand-ink" />
                   </span>
                   Easy returns and exchanges (40 days)
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#f7eee9] text-[#8b4a2f]">
-                    <svg
-                      aria-hidden="true"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M3 7h13l3 5v4h-3" />
-                      <path d="M16 16h-6" />
-                      <circle cx="7" cy="16" r="2" />
-                      <circle cx="17" cy="16" r="2" />
-                    </svg>
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand-ink">
+                    <LocalShipping
+                      fontSize="small"
+                      className="text-brand-ink"
+                    />
                   </span>
                   Free shipping on orders over $50
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#f7eee9] text-[#8b4a2f]">
-                    <svg
-                      aria-hidden="true"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-4z" />
-                      <path d="M9 12l2 2 4-4" />
-                    </svg>
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-brand-ink">
+                    <Verified fontSize="small" className="text-brand-ink" />
                   </span>
                   All products are backed by our 100% quality guarantee
                 </li>
@@ -605,39 +557,27 @@ export default function ProductDetailPage() {
           ))}
         </div>
 
-        <div className="mt-6 rounded-2xl border border-[#efe2db] bg-white p-6 text-sm leading-6 text-[#6e5146]">
+        <div className="mt-6 rounded-2xl border border-brand-ink-soft bg-white p-6 text-sm leading-6 text-brand-ink-soft">
           {activeTab === "Description" && (
             <div className="space-y-4">
               <p>{product.description}</p>
               <div>
-                <p className="text-sm font-semibold text-[#2b1d17]">
+                <p className="text-sm font-semibold text-brand-ink">
                   Key Features:
                 </p>
                 {product.features.length ? (
                   <ul className="mt-3 space-y-2">
                     {product.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2">
-                        <span className="grid h-6 w-6 place-items-center rounded-full bg-[#f7eee9] text-[#8b4a2f]">
-                          <svg
-                            aria-hidden="true"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
+                        <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-brand-ink">
+                          <Check fontSize="small" className="text-brand-ink" />
                         </span>
                         {feature}
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-3 text-sm text-[#6e5146]">
+                  <p className="mt-3 text-sm text-brand-ink">
                     No feature highlights available yet.
                   </p>
                 )}
@@ -651,18 +591,18 @@ export default function ProductDetailPage() {
                 product.additionalInfo.map((info) => (
                   <div
                     key={info.label}
-                    className="rounded-xl border border-[#efe2db] bg-[#fff9f6] p-4"
+                    className="rounded-xl border border-brand-ink-soft bg-white p-4"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a37866]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-ink-soft">
                       {info.label}
                     </p>
-                    <p className="mt-2 text-sm font-semibold text-[#2b1d17]">
+                    <p className="mt-2 text-sm font-semibold text-brand-ink">
                       {info.value}
                     </p>
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-[#6e5146]">
+                <p className="text-sm text-brand-ink">
                   Additional details are not available yet.
                 </p>
               )}
@@ -675,39 +615,37 @@ export default function ProductDetailPage() {
                 product.reviews.map((review) => (
                   <div
                     key={review.id}
-                    className="rounded-xl border border-[#efe2db] bg-[#fff9f6] p-4"
+                    className="rounded-xl border border-brand-ink-soft bg-white p-4"
                   >
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-[#2b1d17]">
+                      <p className="text-sm font-semibold text-brand-ink">
                         {review.author}
                       </p>
-                      <div className="flex items-center gap-1 text-[#8b4a2f]">
-                        {stars.map((index) => (
-                          <svg
-                            key={index}
-                            aria-hidden="true"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className={
-                              index < Math.round(review.rating)
-                                ? "text-[#8b4a2f]"
-                                : "text-[#d8c7c0]"
-                            }
-                          >
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                          </svg>
-                        ))}
+                      <div className="flex items-center gap-1 text-brand-ink">
+                        {stars.map((index) => {
+                          const filled = index < Math.round(review.rating);
+                          const Icon = filled ? Star : StarBorder;
+                          return (
+                            <Icon
+                              key={index}
+                              fontSize="small"
+                              className={
+                                filled
+                                  ? "text-brand-ink"
+                                  : "text-brand-ink-soft"
+                              }
+                            />
+                          );
+                        })}
                       </div>
                     </div>
-                    <p className="mt-3 text-sm text-[#6e5146]">
+                    <p className="mt-3 text-sm text-brand-ink">
                       {review.content || "No review text provided."}
                     </p>
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-[#6e5146]">
+                <p className="text-sm text-brand-ink">
                   No reviews have been posted yet.
                 </p>
               )}
@@ -725,10 +663,10 @@ export default function ProductDetailPage() {
             {relatedProducts.map((item) => (
               <article
                 key={item.id}
-                className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#efe2db] bg-white shadow-[0_18px_45px_rgba(160,114,90,0.18)]"
+                className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-brand-ink-soft bg-white shadow-[0_18px_45px_rgba(160,114,90,0.18)]"
               >
                 {item.badge ? (
-                  <span className="absolute left-4 top-4 z-10 rounded-full bg-[#f0ddd5] px-3 py-1 text-xs font-semibold text-[#8b4a2f]">
+                  <span className="absolute left-4 top-4 z-10 rounded-full bg-white px-3 py-1 text-xs font-semibold text-brand-ink">
                     {item.badge}
                   </span>
                 ) : null}
@@ -753,20 +691,20 @@ export default function ProductDetailPage() {
                 <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
                   <div className="flex items-center gap-2 text-sm">
                     {item.oldPrice ? (
-                      <span className="font-semibold text-[#b8aaa3] line-through">
+                      <span className="font-semibold text-brand-ink line-through">
                         {item.oldPrice}
                       </span>
                     ) : null}
-                    <span className="font-semibold text-[#2b1d17]">
+                    <span className="font-semibold text-brand-ink">
                       {item.price ?? "-"}
                     </span>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-[#2b1d17]">
+                  <h3 className="mt-4 text-lg font-semibold text-brand-ink">
                     {item.name}
                   </h3>
                   <button
                     type="button"
-                    className="mt-6 w-full rounded-b-2xl rounded-t-md bg-[#8b4a2f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7a4029]"
+                    className="mt-6 w-full rounded-b-2xl rounded-t-md bg-brand-ink py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7a4029]"
                   >
                     Add To Cart +
                   </button>
