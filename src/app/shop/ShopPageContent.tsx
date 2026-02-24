@@ -51,7 +51,7 @@ export default function ShopPageContent() {
     <>
       <ShopHero />
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
+      <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 lg:grid-cols-[260px_minmax(0,1fr)]">
           <aside className="space-y-8">
             <CategoryFilter

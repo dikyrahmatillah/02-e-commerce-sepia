@@ -339,16 +339,16 @@ export default function ProductDetailPage() {
     : [product.imageSrc];
 
   return (
-    <div className="bg-white text-brand-ink">
-      <section className="relative overflow-hidden bg-white pt-24">
+    <div className="bg-cream text-brand-ink">
+      <section className="relative overflow-hidden bg-cream pt-24">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-white blur-3xl" />
-          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-white blur-3xl" />
+          <div className="absolute left-0 top-16 h-60 w-60 rounded-full bg-cream blur-3xl" />
+          <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-cream blur-3xl" />
           <div className="absolute inset-0 bg-[radial-gradient(#ead7ce_1px,transparent_1px)] opacity-60 bg-size-[18px_18px]" />
         </div>
 
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-6 pb-4">
-          <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold text-brand-ink">
+        <div className="relative mx-auto flex flex-col max-w-7xl px-6 pt-8">
+          <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-brand-ink">
             <Link href="/" className="underline underline-offset-4">
               Home
             </Link>
@@ -362,48 +362,44 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+      <section className="mx-auto max-w-7xl px-6 pt-6 pb-16">
+        <div className="grid gap-12 grid-cols-2">
           <div className="space-y-6">
-            <div className="rounded-3xl border border-brand-ink-soft bg-white p-8 shadow-[0_18px_45px_rgba(160,114,90,0.18)]">
-              <div className="relative flex h-full items-center justify-center rounded-2xl bg-white p-6">
-                <Image
-                  src={galleryImages[activeImage] ?? product.imageSrc}
-                  alt={product.name}
-                  width={520}
-                  height={460}
-                  className="h-90 w-full object-contain"
-                  unoptimized
-                />
-                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-brand-ink-soft bg-white text-brand-ink">
-                  <Search fontSize="small" className="text-brand-ink" />
-                </span>
-              </div>
+            <div className="relative rounded-3xl">
+              <Image
+                src={galleryImages[activeImage] ?? product.imageSrc}
+                alt={product.name}
+                width={520}
+                height={460}
+                className="h-full w-full rounded-3xl"
+                unoptimized
+              />
+              <span className="absolute right-2 top-2">
+                <Search fontSize="medium" className="text-brand-ink" />
+              </span>
             </div>
 
             <div className="grid grid-cols-5 gap-4">
-              {galleryImages.map((image, index) => (
+              {galleryImages.slice(0, 5).map((image, index) => (
                 <button
                   key={`${image}-${index}`}
                   type="button"
                   onClick={() => setActiveImage(index)}
-                  className={`rounded-2xl border bg-white p-3 transition-colors ${
+                  className={`transition-colors border rounded-2xl overflow-hidden ${
                     activeImage === index
-                      ? "border-[#8b4a2f]"
-                      : "border-[#efe2db]"
+                      ? ""
+                      : "brightness-50 hover:brightness-100"
                   }`}
                   aria-label={`View image ${index + 1}`}
                 >
-                  <div className="flex h-16 items-center justify-center">
-                    <Image
-                      src={image}
-                      alt={product.name}
-                      width={120}
-                      height={120}
-                      className="h-12 w-full object-contain"
-                      unoptimized
-                    />
-                  </div>
+                  <Image
+                    src={image}
+                    alt={product.name}
+                    width={120}
+                    height={120}
+                    className="h-25 w-full object-cover cursor-pointer"
+                    unoptimized
+                  />
                 </button>
               ))}
             </div>
